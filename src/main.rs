@@ -48,7 +48,7 @@ impl Board {
     [[0, 2], [1, 2], [2, 2]]
     ];
 
-    pub fn is_won(&self) -> bool {
+    fn is_won(&self) -> bool {
         Self::WIN_CONDITIONS.iter().any(|condition|
             condition.iter().all(|coord| {
                 let [x, y] = coord;
@@ -56,7 +56,7 @@ impl Board {
             }))
     }
 
-    pub fn stalemate(&self) -> bool {
+    fn stalemate(&self) -> bool {
         self.grid.iter().flatten().all(|&coords| coords != Player::None)
     }
 
