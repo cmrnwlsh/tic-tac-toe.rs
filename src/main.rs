@@ -62,14 +62,10 @@ impl Board {
 
     pub fn play_move(&mut self, [x, y]: [usize; 2]) {
         self.grid[x][y] = self.player_current;
-        if self.is_won() {
-            self.status = State::Winner(self.player_current);
-        }
-        else if self.stalemate() {
-            self.status = State::Stalemate;
-        }
-        else {
-            self.status = State::InProgress;
+        match {[self.is_won(), self.stalemate()]} {
+            [true, false] => self.status = State::Winner(self.player_current),
+            [false, true] => self.status = State::Stalemate,
+            _ => self.status = State::InProgress
         }
         match self.player_current {
             Player::P1 => self.player_current = Player::P2,
